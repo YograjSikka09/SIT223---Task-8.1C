@@ -1,0 +1,945 @@
+Started by user unknown or anonymous
+Obtained Jenkinsfile from git https://github.com/YograjSikka09/8.2CDevSecOps.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+ > git rev-parse --resolve-git-dir /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/YograjSikka09/8.2CDevSecOps.git # timeout=10
+Fetching upstream changes from https://github.com/YograjSikka09/8.2CDevSecOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.50.1 (Apple Git-155)'
+ > git fetch --tags --force --progress -- https://github.com/YograjSikka09/8.2CDevSecOps.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 5c80559c7188cc84330f2ebb92af433e67be789b (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 5c80559c7188cc84330f2ebb92af433e67be789b # timeout=10
+Commit message: "Remove SonarCloud stage keep local SonarQube"
+ > git rev-list --no-walk 647da22bade978282d61d912df75df2460646618 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install Dependencies)
+[Pipeline] sh
++ node -v
+v22.18.0
+[Pipeline] sh
++ npm -v
+10.9.3
+[Pipeline] sh
++ npm install
+
+> juice-shop@19.2.1 postinstall
+> cd frontend && npm install && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)
+
+
+up to date, audited 1308 packages in 6s
+
+273 packages are looking for funding
+  run `npm fund` for details
+
+19 vulnerabilities (14 low, 1 moderate, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> juice-shop@19.2.1 build:frontend
+> cd frontend && npm run build
+
+
+> frontend@19.2.1 build
+> ng build --configuration production && npm run sbom
+
+❯ Building...
+✔ Building...
+Initial chunk files                      | Names                        |  Raw size | Estimated transfer size
+main.js                                  | main                         |   1.36 MB |               266.41 kB
+styles.css                               | styles                       | 651.84 kB |                28.27 kB
+chunk-4MIYPPGW.js                        | -                            | 380.66 kB |                75.75 kB
+chunk-LHKS7QUN.js                        | -                            | 236.05 kB |                67.20 kB
+polyfills.js                             | polyfills                    |  34.59 kB |                11.33 kB
+scripts.js                               | scripts                      |  20.70 kB |                 6.09 kB
+chunk-T3PSKZ45.js                        | -                            |  11.23 kB |                 3.37 kB
+chunk-TWZW5B45.js                        | -                            |   1.69 kB |               717 bytes
+chunk-24EZLZ4I.js                        | -                            |   1.38 kB |               683 bytes
+
+                                         | Initial total                |   2.70 MB |               459.81 kB
+
+Lazy chunk files                         | Names                        |  Raw size | Estimated transfer size
+chunk-XFLMN5IC.js                        | -                            | 526.14 kB |               142.27 kB
+web3-sandbox.module-GG5AZS6F.js          | web3-sandbox-module          | 255.09 kB |                74.38 kB
+chunk-D27OXLTH.js                        | -                            | 174.22 kB |                50.98 kB
+hacking-instructor-OYUKCDGG.js           | index                        |  37.06 kB |                 9.34 kB
+core-C2XGVFZK.js                         | core                         |  20.75 kB |                 7.61 kB
+faucet.module-ZH74DQGR.js                | faucet-module                |  12.20 kB |                 3.77 kB
+confetti-5NW67UGY.js                     | index                        |  11.19 kB |                 4.08 kB
+chunk-YRGZNTPL.js                        | -                            |   9.20 kB |               843 bytes
+typescript-UDT5SHEV.js                   | typescript                   |   7.80 kB |                 2.79 kB
+wallet-web3.module-RPGFJNJW.js           | wallet-web3-module           |   7.20 kB |                 2.64 kB
+javascript-7C6DVIGG.js                   | javascript                   |   6.54 kB |                 2.39 kB
+yaml-UHPDYXVZ.js                         | yaml                         |   1.91 kB |               772 bytes
+ngx-highlightjs-line-numbers-6NZGNB3C.js | ngx-highlightjs-line-numbers | 174 bytes |               174 bytes
+codemirror-CUGPEQ5R.js                   | codemirror                   |  83 bytes |                83 bytes
+
+Application bundle generation complete. [9.485 seconds] - 2026-04-13T09:55:43.909Z
+
+▲ [WARNING] 1 rules skipped due to selector errors:
+  50% -> Unmatched selector: %
+
+
+Output location: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/dist/frontend
+
+
+> frontend@19.2.1 sbom
+> cyclonedx-esbuild --output-reproducible --output-file dist/bom/bom.json dist/frontend/stats.json
+
+LOG   | writing BOM to: dist/bom/bom.json
+error TS2688: Cannot find type definition file for 'node-fetch'.
+  The file is in the program because:
+    Entry point for implicit type library 'node-fetch'
+
+up to date, audited 2179 packages in 29s
+
+243 packages are looking for funding
+  run `npm fund` for details
+
+58 vulnerabilities (6 low, 11 moderate, 34 high, 7 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues possible (including breaking changes), run:
+  npm audit fix --force
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
+[Pipeline] dir
+Running in /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend
+[Pipeline] {
+[Pipeline] sh
++ npm install
+
+up to date, audited 1308 packages in 1s
+
+273 packages are looking for funding
+  run `npm fund` for details
+
+19 vulnerabilities (14 low, 1 moderate, 4 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Application)
+[Pipeline] dir
+Running in /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend
+[Pipeline] {
+[Pipeline] sh
++ npm run build
+
+> frontend@19.2.1 build
+> ng build --configuration production && npm run sbom
+
+❯ Building...
+✔ Building...
+Initial chunk files                      | Names                        |  Raw size | Estimated transfer size
+main.js                                  | main                         |   1.36 MB |               266.41 kB
+styles.css                               | styles                       | 651.84 kB |                28.27 kB
+chunk-4MIYPPGW.js                        | -                            | 380.66 kB |                75.75 kB
+chunk-LHKS7QUN.js                        | -                            | 236.05 kB |                67.20 kB
+polyfills.js                             | polyfills                    |  34.59 kB |                11.33 kB
+scripts.js                               | scripts                      |  20.70 kB |                 6.09 kB
+chunk-T3PSKZ45.js                        | -                            |  11.23 kB |                 3.37 kB
+chunk-TWZW5B45.js                        | -                            |   1.69 kB |               717 bytes
+chunk-24EZLZ4I.js                        | -                            |   1.38 kB |               683 bytes
+
+                                         | Initial total                |   2.70 MB |               459.81 kB
+
+Lazy chunk files                         | Names                        |  Raw size | Estimated transfer size
+chunk-XFLMN5IC.js                        | -                            | 526.14 kB |               142.27 kB
+web3-sandbox.module-GG5AZS6F.js          | web3-sandbox-module          | 255.09 kB |                74.38 kB
+chunk-D27OXLTH.js                        | -                            | 174.22 kB |                50.98 kB
+hacking-instructor-OYUKCDGG.js           | index                        |  37.06 kB |                 9.34 kB
+core-C2XGVFZK.js                         | core                         |  20.75 kB |                 7.61 kB
+faucet.module-ZH74DQGR.js                | faucet-module                |  12.20 kB |                 3.77 kB
+confetti-5NW67UGY.js                     | index                        |  11.19 kB |                 4.08 kB
+chunk-YRGZNTPL.js                        | -                            |   9.20 kB |               843 bytes
+typescript-UDT5SHEV.js                   | typescript                   |   7.80 kB |                 2.79 kB
+wallet-web3.module-RPGFJNJW.js           | wallet-web3-module           |   7.20 kB |                 2.64 kB
+javascript-7C6DVIGG.js                   | javascript                   |   6.54 kB |                 2.39 kB
+yaml-UHPDYXVZ.js                         | yaml                         |   1.91 kB |               772 bytes
+ngx-highlightjs-line-numbers-6NZGNB3C.js | ngx-highlightjs-line-numbers | 174 bytes |               174 bytes
+codemirror-CUGPEQ5R.js                   | codemirror                   |  83 bytes |                83 bytes
+
+Application bundle generation complete. [9.091 seconds] - 2026-04-13T09:55:59.821Z
+
+▲ [WARNING] 1 rules skipped due to selector errors:
+  50% -> Unmatched selector: %
+
+
+Output location: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/dist/frontend
+
+
+> frontend@19.2.1 sbom
+> cyclonedx-esbuild --output-reproducible --output-file dist/bom/bom.json dist/frontend/stats.json
+
+LOG   | writing BOM to: dist/bom/bom.json
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Tests)
+[Pipeline] sh
++ npm run test:server
+
+> juice-shop@19.2.1 test:server
+> nyc --report-dir=./build/reports/coverage/server-tests mocha -r ts-node/register -r source-map-support/register --recursive test/server/**/*.ts
+
+
+Error: Cannot find module './lib/_stream_readable.js'
+Require stack:
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/node_modules/readable-stream/readable.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston/logger.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston/create-logger.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/lib/logger.ts
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/lib/utils.ts
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/routes/angular.ts
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/test/server/angularSpec.ts
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/esm-utils.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/mocha.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/cli/one-and-dones.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/cli/options.js
+- /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/bin/mocha
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1365:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue [as _resolveFilename] (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/@cspotcode/source-map-support/source-map-support.js:811:30)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+    at Function._load (node:internal/modules/cjs/loader:1175:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/node_modules/readable-stream/readable.js:7:30)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at node:internal/modules/cjs/loader:1820:10
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1608:43)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston/logger.js:10:31)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at node:internal/modules/cjs/loader:1820:10
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1608:43)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston/create-logger.js:12:16)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at node:internal/modules/cjs/loader:1820:10
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1608:43)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/winston/lib/winston.js:42:24)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at node:internal/modules/cjs/loader:1820:10
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1608:43)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/lib/logger.ts:4:4)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at Module.m._compile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1618:23)
+    at module.exports (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/default-require-extensions/js.js:7:9)
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1621:12)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/lib/utils.ts:4:4)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at Module.m._compile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1618:23)
+    at module.exports (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/default-require-extensions/js.js:7:9)
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1621:12)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/routes/angular.ts:4:4)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at Module.m._compile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1618:23)
+    at module.exports (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/default-require-extensions/js.js:7:9)
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1621:12)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/test/server/angularSpec.ts:9:1)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Module.replacementCompile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:60:13)
+    at Module.m._compile (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1618:23)
+    at module.exports (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/default-require-extensions/js.js:7:9)
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4
+    at require.extensions.<computed> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/ts-node/src/index.ts:1621:12)
+    at Object.<anonymous> (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/append-transform/index.js:64:4)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.exports.requireOrImport (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/esm-utils.js:42:12)
+    at Object.exports.loadFilesAsync (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/esm-utils.js:55:34)
+    at Mocha.loadFilesAsync (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/mocha.js:473:19)
+    at singleRun (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/cli/run-helpers.js:125:15)
+    at exports.runMocha (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/cli/run-helpers.js:190:10)
+    at Object.exports.handler (/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/lib/cli/run.js:362:11)
+    at /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/node_modules/mocha/node_modules/yargs/build/index.cjs:443:71
+
+=============================== Coverage summary ===============================
+Statements   : 0.21% ( 6/2794 )
+Branches     : 0% ( 0/1214 )
+Functions    : 0% ( 0/591 )
+Lines        : 0.23% ( 6/2604 )
+================================================================================
++ true
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Generate Coverage Report)
+[Pipeline] sh
++ npm run coverage
+npm error Missing script: "coverage"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /Users/yograj/.npm/_logs/2026-04-13T09_56_04_225Z-debug-0.log
++ true
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Security Scan)
+[Pipeline] sh
++ npm audit
+# npm audit report
+
+@tootallnate/once  <3.0.1
+@tootallnate/once vulnerable to Incorrect Control Flow Scoping - https://github.com/advisories/GHSA-vpq2-c234-7xj6
+fix available via `npm audit fix --force`
+Will install sqlite3@6.0.1, which is a breaking change
+node_modules/@tootallnate/once
+node_modules/sqlite3/node_modules/@tootallnate/once
+  http-proxy-agent  4.0.1 - 5.0.0
+  Depends on vulnerable versions of @tootallnate/once
+  node_modules/http-proxy-agent
+  node_modules/sqlite3/node_modules/http-proxy-agent
+    @nlpjs/request  >=4.13.2
+    Depends on vulnerable versions of http-proxy-agent
+    node_modules/@nlpjs/request
+      @nlpjs/core-loader  >=4.13.2
+      Depends on vulnerable versions of @nlpjs/request
+      node_modules/@nlpjs/core-loader
+    make-fetch-happen  7.1.1 - 14.0.0
+    Depends on vulnerable versions of cacache
+    Depends on vulnerable versions of http-proxy-agent
+    node_modules/sqlite3/node_modules/make-fetch-happen
+      node-gyp  <=10.3.1
+      Depends on vulnerable versions of make-fetch-happen
+      Depends on vulnerable versions of tar
+      node_modules/sqlite3/node_modules/node-gyp
+        sqlite3  5.0.0 - 5.1.7
+        Depends on vulnerable versions of node-gyp
+        Depends on vulnerable versions of tar
+        node_modules/sqlite3
+
+base64url  <3.0.0
+Severity: moderate
+Out-of-bounds Read in base64url - https://github.com/advisories/GHSA-rvg8-pwq2-xj7q
+fix available via `npm audit fix --force`
+Will install jsonwebtoken@9.0.3, which is a breaking change
+node_modules/base64url
+  jwa  <=1.1.5
+  Depends on vulnerable versions of base64url
+  node_modules/jwa
+    jws  <=3.2.2
+    Depends on vulnerable versions of base64url
+    Depends on vulnerable versions of jwa
+    node_modules/jws
+      jsonwebtoken  <=8.5.1
+      Depends on vulnerable versions of jws
+      Depends on vulnerable versions of moment
+      node_modules/express-jwt/node_modules/jsonwebtoken
+      node_modules/jsonwebtoken
+        express-jwt  <=7.7.7
+        Depends on vulnerable versions of jsonwebtoken
+        node_modules/express-jwt
+
+braces  <3.0.3
+Severity: high
+Uncontrolled resource consumption in braces - https://github.com/advisories/GHSA-grv7-fg5c-xmjg
+fix available via `npm audit fix --force`
+Will install check-dependencies@2.0.0, which is a breaking change
+node_modules/braces
+  micromatch  <=4.0.7
+  Depends on vulnerable versions of braces
+  node_modules/micromatch
+    findup-sync  0.4.0 - 3.0.0
+    Depends on vulnerable versions of micromatch
+    node_modules/findup-sync
+      check-dependencies  0.12.1 - 1.1.1
+      Depends on vulnerable versions of findup-sync
+      node_modules/check-dependencies
+
+cookie  <0.7.0
+cookie accepts cookie name, path, and domain with out of bounds characters - https://github.com/advisories/GHSA-pxg6-pf52-xh8x
+fix available via `npm audit fix --force`
+Will install socket.io@4.8.3, which is a breaking change
+node_modules/engine.io/node_modules/cookie
+  engine.io  0.7.8 - 0.7.9 || 1.8.0 - 6.6.1
+  Depends on vulnerable versions of cookie
+  Depends on vulnerable versions of ws
+  node_modules/engine.io
+    socket.io  3.0.0-rc1 - 4.6.1
+    Depends on vulnerable versions of engine.io
+    node_modules/socket.io
+
+crypto-js  <4.2.0
+Severity: critical
+crypto-js PBKDF2 1,000 times weaker than specified in 1993 and 1.3M times weaker than current standard - https://github.com/advisories/GHSA-xwcq-pm8m-c4vf
+fix available via `npm audit fix --force`
+Will install pdfkit@0.18.0, which is a breaking change
+node_modules/crypto-js
+  pdfkit  0.9.0 - 0.12.1
+  Depends on vulnerable versions of crypto-js
+  node_modules/pdfkit
+
+diff  5.0.0 - 5.2.1
+jsdiff has a Denial of Service vulnerability in parsePatch and applyPatch - https://github.com/advisories/GHSA-73rr-hh4g-fpgx
+fix available via `npm audit fix`
+node_modules/diff
+
+
+
+file-type  13.0.0 - 21.3.0
+Severity: moderate
+file-type affected by infinite loop in ASF parser on malformed input with zero-size sub-header - https://github.com/advisories/GHSA-5v7r-6r5c-r473
+fix available via `npm audit fix --force`
+Will install file-type@22.0.1, which is a breaking change
+node_modules/file-type
+
+got  <=11.8.3
+Severity: high
+Got allows a redirect to a UNIX socket - https://github.com/advisories/GHSA-pfrx-2q88-qq97
+Depends on vulnerable versions of cacheable-request
+fix available via `npm audit fix --force`
+Will install download@3.3.0, which is a breaking change
+node_modules/got
+  download  >=4.0.0
+  Depends on vulnerable versions of got
+  node_modules/download
+
+http-cache-semantics  <4.1.1
+Severity: high
+http-cache-semantics vulnerable to Regular Expression Denial of Service - https://github.com/advisories/GHSA-rc47-6667-2j5j
+fix available via `npm audit fix --force`
+Will install download@3.3.0, which is a breaking change
+node_modules/http-cache-semantics
+  cacheable-request  0.1.0 - 2.1.4
+  Depends on vulnerable versions of http-cache-semantics
+  node_modules/cacheable-request
+
+js-yaml  4.0.0 - 4.1.0
+Severity: moderate
+js-yaml has prototype pollution in merge (<<) - https://github.com/advisories/GHSA-mh29-5h37-fv8m
+fix available via `npm audit fix --force`
+Will install mocha@11.7.5, which is a breaking change
+node_modules/mocha/node_modules/js-yaml
+  mocha  5.1.0 - 12.0.0-beta-2
+  Depends on vulnerable versions of diff
+  Depends on vulnerable versions of js-yaml
+  Depends on vulnerable versions of minimatch
+  Depends on vulnerable versions of nanoid
+  Depends on vulnerable versions of serialize-javascript
+  node_modules/mocha
+
+
+
+lodash  <=4.17.23
+Severity: critical
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-fvqr-27wr-82fm
+Command Injection in lodash - https://github.com/advisories/GHSA-35jh-r3h4-6jhm
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-4xc9-xhrj-v574
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-jf85-cpcp-j695
+lodash vulnerable to Code Injection via `_.template` imports key names - https://github.com/advisories/GHSA-r5fr-rjxr-66jc
+lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit` - https://github.com/advisories/GHSA-f23m-r3pf-42rh
+fix available via `npm audit fix --force`
+Will install sanitize-html@2.17.2, which is a breaking change
+node_modules/grunt-legacy-log/node_modules/lodash
+node_modules/grunt-legacy-util/node_modules/lodash
+node_modules/sanitize-html/node_modules/lodash
+  grunt-legacy-log  >=1.0.1
+  Depends on vulnerable versions of lodash
+  node_modules/grunt-legacy-log
+    grunt  >=0.4.0-a
+    Depends on vulnerable versions of grunt-legacy-log
+    Depends on vulnerable versions of grunt-legacy-util
+    Depends on vulnerable versions of minimatch
+    node_modules/grunt
+  grunt-legacy-util  >=1.0.0-rc1
+  Depends on vulnerable versions of lodash
+  node_modules/grunt-legacy-util
+  sanitize-html  <=2.12.0
+  Depends on vulnerable versions of lodash
+  node_modules/sanitize-html
+
+lodash.set  *
+Severity: high
+Prototype Pollution in lodash - https://github.com/advisories/GHSA-p6mc-m468-83gw
+No fix available
+node_modules/lodash.set
+  grunt-replace-json  *
+  Depends on vulnerable versions of lodash.set
+  node_modules/grunt-replace-json
+
+marsdb  *
+Severity: critical
+Command Injection in marsdb - https://github.com/advisories/GHSA-5mrr-rgp6-x4gr
+No fix available
+node_modules/marsdb
+
+
+minimatch  <=3.1.3 || 9.0.0 - 9.0.6
+Severity: high
+minimatch ReDoS vulnerability - https://github.com/advisories/GHSA-f8q6-p94x-37v3
+minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern - https://github.com/advisories/GHSA-3ppc-4f35-3m26
+minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern - https://github.com/advisories/GHSA-3ppc-4f35-3m26
+minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments - https://github.com/advisories/GHSA-7r86-cg39-jmmj
+minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments - https://github.com/advisories/GHSA-7r86-cg39-jmmj
+minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions - https://github.com/advisories/GHSA-23c5-xmqv-rm74
+minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions - https://github.com/advisories/GHSA-23c5-xmqv-rm74
+fix available via `npm audit fix --force`
+Will install mocha@11.7.5, which is a breaking change
+node_modules/@typescript-eslint/parser/node_modules/minimatch
+node_modules/@typescript-eslint/type-utils/node_modules/minimatch
+node_modules/@typescript-eslint/utils/node_modules/minimatch
+node_modules/grunt/node_modules/minimatch
+node_modules/mocha/node_modules/minimatch
+node_modules/replace/node_modules/minimatch
+  @typescript-eslint/typescript-estree  6.16.0 - 7.5.0
+  Depends on vulnerable versions of minimatch
+  node_modules/@typescript-eslint/parser/node_modules/@typescript-eslint/typescript-estree
+  node_modules/@typescript-eslint/type-utils/node_modules/@typescript-eslint/typescript-estree
+  node_modules/@typescript-eslint/utils/node_modules/@typescript-eslint/typescript-estree
+    @typescript-eslint/parser  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    node_modules/@typescript-eslint/parser
+    @typescript-eslint/type-utils  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    Depends on vulnerable versions of @typescript-eslint/utils
+    node_modules/@typescript-eslint/type-utils
+    @typescript-eslint/utils  6.16.0 - 7.5.0
+    Depends on vulnerable versions of @typescript-eslint/typescript-estree
+    node_modules/@typescript-eslint/utils
+      @typescript-eslint/eslint-plugin  6.16.0 - 7.5.0
+      Depends on vulnerable versions of @typescript-eslint/type-utils
+      Depends on vulnerable versions of @typescript-eslint/utils
+      node_modules/@typescript-eslint/eslint-plugin
+  replace  >=0.2.3
+  Depends on vulnerable versions of minimatch
+  node_modules/replace
+
+moment  <=2.29.1
+Severity: high
+Regular Expression Denial of Service in moment - https://github.com/advisories/GHSA-87vv-r9j6-g5qv
+Regular Expression Denial of Service in moment - https://github.com/advisories/GHSA-446m-mv8f-q348
+Path Traversal: 'dir/../../filename' in moment.locale - https://github.com/advisories/GHSA-8hfj-j24r-96c4
+fix available via `npm audit fix --force`
+Will install jsonwebtoken@9.0.3, which is a breaking change
+node_modules/express-jwt/node_modules/moment
+
+nanoid  <=3.3.7
+Severity: moderate
+Predictable results in nanoid generation when given non-integer values - https://github.com/advisories/GHSA-mwcw-c2x4-8c55
+Exposure of Sensitive Information to an Unauthorized Actor in nanoid - https://github.com/advisories/GHSA-qrpm-p2h7-hrv2
+fix available via `npm audit fix --force`
+Will install mocha@11.7.5, which is a breaking change
+node_modules/nanoid
+
+notevil  *
+Severity: moderate
+Sandbox escape in notevil and argencoders-notevil - https://github.com/advisories/GHSA-8g4m-cjm2-96wq
+No fix available
+node_modules/notevil
+
+parseuri  <2.0.0
+Severity: moderate
+parse-uri Regular expression Denial of Service (ReDoS) - https://github.com/advisories/GHSA-6fx8-h7jm-663j
+fix available via `npm audit fix --force`
+Will install socket.io-client@4.8.3, which is a breaking change
+node_modules/parseuri
+  engine.io-client  0.7.0 || 0.7.8 - 0.7.9 || 1.0.2 - 6.1.1
+  Depends on vulnerable versions of parseuri
+  Depends on vulnerable versions of ws
+  node_modules/engine.io-client
+    socket.io-client  1.0.0-pre - 4.4.1
+    Depends on vulnerable versions of engine.io-client
+    Depends on vulnerable versions of parseuri
+    Depends on vulnerable versions of socket.io-parser
+    node_modules/socket.io-client
+
+
+serialize-javascript  <=7.0.4
+Severity: high
+Serialize JavaScript is Vulnerable to RCE via RegExp.flags and Date.prototype.toISOString() - https://github.com/advisories/GHSA-5c6j-r48x-rmvq
+Serialize JavaScript has CPU Exhaustion Denial of Service via crafted array-like objects - https://github.com/advisories/GHSA-qj8w-gfj5-8c6v
+fix available via `npm audit fix --force`
+Will install mocha@11.7.5, which is a breaking change
+node_modules/serialize-javascript
+
+
+socket.io-parser  4.0.0 - 4.2.5
+Severity: high
+Insufficient validation when decoding a Socket.IO packet - https://github.com/advisories/GHSA-cqmj-92xf-r6r9
+socket.io allows an unbounded number of binary attachments - https://github.com/advisories/GHSA-677m-j7p3-52f9
+fix available via `npm audit fix --force`
+Will install socket.io-client@4.8.3, which is a breaking change
+node_modules/socket.io-parser
+
+tar  <=7.5.10
+Severity: high
+Denial of service while parsing a tar file due to lack of folders count validation - https://github.com/advisories/GHSA-f5x3-32g6-xq36
+node-tar Vulnerable to Arbitrary File Creation/Overwrite via Hardlink Path Traversal - https://github.com/advisories/GHSA-34x7-hfp2-rc4v
+node-tar is Vulnerable to Arbitrary File Overwrite and Symlink Poisoning via Insufficient Path Sanitization - https://github.com/advisories/GHSA-8qq5-rm4j-mr97
+Arbitrary File Read/Write via Hardlink Target Escape Through Symlink Chain in node-tar Extraction - https://github.com/advisories/GHSA-83g3-92jg-28cx
+tar has Hardlink Path Traversal via Drive-Relative Linkpath - https://github.com/advisories/GHSA-qffp-2rhf-9h96
+node-tar Symlink Path Traversal via Drive-Relative Linkpath - https://github.com/advisories/GHSA-9ppj-qmqm-q256
+Race Condition in node-tar Path Reservations via Unicode Ligature Collisions on macOS APFS - https://github.com/advisories/GHSA-r6q2-hw4h-h46w
+fix available via `npm audit fix --force`
+Will install sqlite3@6.0.1, which is a breaking change
+node_modules/node-pre-gyp/node_modules/tar
+node_modules/sqlite3/node_modules/tar
+  cacache  14.0.0 - 18.0.4
+  Depends on vulnerable versions of tar
+  node_modules/sqlite3/node_modules/cacache
+  node-pre-gyp  *
+  Depends on vulnerable versions of tar
+  node_modules/node-pre-gyp
+
+vm2  <=3.10.1
+Severity: critical
+vm2 Sandbox Escape vulnerability - https://github.com/advisories/GHSA-whpj-8f3w-67p5
+vm2 vulnerable to Inspect Manipulation - https://github.com/advisories/GHSA-p5gc-c584-jj6v
+vm2 Sandbox Escape vulnerability - https://github.com/advisories/GHSA-g644-9gfx-q4q4
+vm2 Sandbox Escape vulnerability - https://github.com/advisories/GHSA-cchq-frgv-rjh5
+vm2 has a Sandbox Escape - https://github.com/advisories/GHSA-99p7-6v5w-7xg8
+fix available via `npm audit fix --force`
+Will install juicy-chat-bot@0.6.4, which is a breaking change
+node_modules/vm2
+  juicy-chat-bot  >=0.6.5
+  Depends on vulnerable versions of vm2
+  node_modules/juicy-chat-bot
+
+ws  7.0.0 - 7.5.9
+Severity: high
+ws affected by a DoS when handling a request with many HTTP headers - https://github.com/advisories/GHSA-3h5v-q93c-6h6q
+fix available via `npm audit fix --force`
+Will install socket.io@4.8.3, which is a breaking change
+node_modules/engine.io-client/node_modules/ws
+node_modules/engine.io/node_modules/ws
+
+58 vulnerabilities (6 low, 11 moderate, 34 high, 7 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues possible (including breaking changes), run:
+  npm audit fix --force
+
+Some issues need review, and may require choosing
+a different dependency.
++ true
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] tool
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarQube
+[Pipeline] {
+[Pipeline] sh
++ /Users/yograj/.jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/bin/sonar-scanner -Dsonar.projectKey=juice-shop -Dsonar.host.url=http://localhost:9000
+15:26:07.993 INFO  Scanner configuration file: /Users/yograj/.jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner/conf/sonar-scanner.properties
+15:26:07.995 INFO  Project root configuration file: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/sonar-project.properties
+15:26:08.005 INFO  SonarScanner CLI 8.0.1.6346
+15:26:08.007 INFO  Mac OS X 26.4 aarch64
+15:26:09.777 INFO  Communicating with SonarQube Server 9.9.8.100196
+15:26:09.994 INFO  Load global settings
+15:26:10.040 INFO  Load global settings (done) | time=46ms
+15:26:10.041 INFO  Server id: 147B411E-AZ1y421CoG1TzEo4SjjM
+15:26:10.043 INFO  User cache: /Users/yograj/.sonar/cache
+15:26:10.045 INFO  Load/download plugins
+15:26:10.045 INFO  Load plugins index
+15:26:10.065 INFO  Load plugins index (done) | time=20ms
+15:26:10.113 INFO  Load/download plugins (done) | time=68ms
+15:26:10.319 INFO  Process project properties
+15:26:10.322 INFO  Process project properties (done) | time=3ms
+15:26:10.323 INFO  Execute project builders
+15:26:10.324 INFO  Execute project builders (done) | time=1ms
+15:26:10.345 INFO  Project key: juice-shop
+15:26:10.345 INFO  Base dir: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline
+15:26:10.345 INFO  Working dir: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/.scannerwork
+15:26:10.348 INFO  Load project settings for component key: 'juice-shop'
+15:26:10.368 INFO  Load project settings for component key: 'juice-shop' (done) | time=20ms
+15:26:10.419 INFO  Auto-configuring with CI 'Jenkins'
+15:26:10.420 INFO  Load quality profiles
+15:26:10.459 INFO  Load quality profiles (done) | time=39ms
+15:26:10.464 INFO  Load active rules
+15:26:11.221 INFO  Load active rules (done) | time=757ms
+15:26:11.224 INFO  Load analysis cache
+15:26:11.262 INFO  Load analysis cache | time=38ms
+15:26:11.312 INFO  Load project repositories
+15:26:11.328 INFO  Load project repositories (done) | time=16ms
+15:26:11.341 INFO  Indexing files...
+15:26:11.341 INFO  Project configuration:
+15:26:21.341 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:26:31.347 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:26:41.352 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:26:51.355 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:01.360 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:11.365 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:21.366 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:31.371 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:41.376 INFO  38 files indexed...  (last one was frontend/tsconfig.base.json)
+15:27:51.382 INFO  782 files indexed...  (last one was app.ts)
+15:28:01.387 INFO  782 files indexed...  (last one was app.ts)
+15:28:11.392 INFO  782 files indexed...  (last one was app.ts)
+15:28:21.393 INFO  782 files indexed...  (last one was app.ts)
+15:28:31.398 INFO  782 files indexed...  (last one was app.ts)
+15:28:41.403 INFO  782 files indexed...  (last one was app.ts)
+15:28:51.408 INFO  782 files indexed...  (last one was app.ts)
+15:29:01.413 INFO  782 files indexed...  (last one was app.ts)
+15:29:11.418 INFO  782 files indexed...  (last one was app.ts)
+15:29:21.424 INFO  782 files indexed...  (last one was app.ts)
+15:29:31.429 INFO  782 files indexed...  (last one was app.ts)
+15:29:41.433 INFO  782 files indexed...  (last one was app.ts)
+15:29:51.436 INFO  782 files indexed...  (last one was app.ts)
+15:30:01.441 INFO  782 files indexed...  (last one was app.ts)
+15:30:11.446 INFO  782 files indexed...  (last one was app.ts)
+15:30:21.448 INFO  782 files indexed...  (last one was app.ts)
+15:30:31.453 INFO  782 files indexed...  (last one was app.ts)
+15:30:35.050 INFO  1115 files indexed
+15:30:35.050 INFO  126019 files ignored because of scm ignore settings
+15:30:35.057 INFO  Quality profile for css: Sonar way
+15:30:35.057 INFO  Quality profile for js: Sonar way
+15:30:35.057 INFO  Quality profile for json: Sonar way
+15:30:35.057 INFO  Quality profile for py: Sonar way
+15:30:35.057 INFO  Quality profile for ts: Sonar way
+15:30:35.057 INFO  Quality profile for web: Sonar way
+15:30:35.057 INFO  Quality profile for xml: Sonar way
+15:30:35.057 INFO  Quality profile for yaml: Sonar way
+15:30:35.057 INFO  ------------- Run sensors on module Juice Shop DevSecOps
+15:30:35.115 INFO  Load metrics repository
+15:30:35.151 INFO  Load metrics repository (done) | time=36ms
+15:30:35.700 INFO  Sensor Python Sensor [python]
+15:30:35.701 WARN  Your code is analyzed as compatible with python 2 and 3 by default. This will prevent the detection of issues specific to python 2 or python 3. You can get a more precise analysis by setting a python version in your configuration via the parameter "sonar.python.version"
+15:30:35.706 INFO  Starting global symbols computation
+15:30:35.707 INFO  3 source files to be analyzed
+15:30:35.802 INFO  3/3 source files have been analyzed
+15:30:35.811 INFO  Starting rules execution
+15:30:35.811 INFO  3 source files to be analyzed
+15:30:35.897 INFO  3/3 source files have been analyzed
+15:30:35.897 INFO  The Python analyzer was able to leverage cached data from previous analyses for 0 out of 3 files. These files were not parsed.
+15:30:35.897 INFO  Sensor Python Sensor [python] (done) | time=197ms
+15:30:35.897 INFO  Sensor Cobertura Sensor for Python coverage [python]
+15:30:38.821 INFO  Sensor Cobertura Sensor for Python coverage [python] (done) | time=2924ms
+15:30:38.821 INFO  Sensor PythonXUnitSensor [python]
+15:30:41.238 INFO  Sensor PythonXUnitSensor [python] (done) | time=2417ms
+15:30:41.240 INFO  Sensor JaCoCo XML Report Importer [jacoco]
+15:30:41.241 INFO  'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+15:30:41.241 INFO  No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+15:30:41.241 INFO  Sensor JaCoCo XML Report Importer [jacoco] (done) | time=1ms
+15:30:41.241 INFO  Sensor IaC CloudFormation Sensor [iac]
+15:30:41.584 INFO  0 source files to be analyzed
+15:30:41.670 INFO  0/0 source files have been analyzed
+15:30:41.670 INFO  Sensor IaC CloudFormation Sensor [iac] (done) | time=429ms
+15:30:41.671 INFO  Sensor IaC Kubernetes Sensor [iac]
+15:30:41.776 INFO  0 source files to be analyzed
+15:30:41.860 INFO  0/0 source files have been analyzed
+15:30:41.860 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=189ms
+15:30:41.860 INFO  Sensor JavaScript analysis [javascript]
+15:30:45.733 WARN  Node.js version 22 is not recommended, you might experience issues. Please use a recommended version of Node.js [16, 18]
+15:30:45.739 INFO  4 source files to be analyzed
+15:30:47.017 INFO  4/4 source files have been analyzed
+15:30:47.017 INFO  Hit the cache for 0 out of 4
+15:30:47.018 INFO  Miss the cache for 4 out of 4: ANALYSIS_MODE_INELIGIBLE [4/4]
+15:30:47.018 INFO  Sensor JavaScript analysis [javascript] (done) | time=5158ms
+15:30:47.018 INFO  Sensor TypeScript analysis [javascript]
+15:30:47.063 INFO  Found 3 tsconfig.json file(s): [/Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/tsconfig.json, /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/tsconfig.json, /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/test/cypress/tsconfig.json]
+15:30:47.063 INFO  587 source files to be analyzed
+15:30:47.063 INFO  Creating TypeScript program
+15:30:47.063 INFO  TypeScript configuration file /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/tsconfig.json
+15:30:47.774 INFO  Creating TypeScript program (done) | time=711ms
+15:30:47.774 INFO  Starting analysis with current program
+15:30:55.301 INFO  Analyzed 234 file(s) with current program
+15:30:55.302 INFO  Creating TypeScript program
+15:30:55.302 INFO  TypeScript configuration file /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/tsconfig.json
+15:30:55.317 INFO  Creating TypeScript program (done) | time=15ms
+15:30:55.317 INFO  Starting analysis with current program
+15:30:55.317 INFO  Analyzed 0 file(s) with current program
+15:30:55.317 INFO  Creating TypeScript program
+15:30:55.317 INFO  TypeScript configuration file /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/test/cypress/tsconfig.json
+15:30:55.650 INFO  Creating TypeScript program (done) | time=333ms
+15:30:55.650 INFO  Starting analysis with current program
+15:30:55.651 INFO  Analyzed 0 file(s) with current program
+15:30:55.652 INFO  Creating TypeScript program
+15:30:55.652 INFO  TypeScript configuration file /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/src/tsconfig.app.json
+15:30:56.464 INFO  Creating TypeScript program (done) | time=812ms
+15:30:56.464 INFO  Starting analysis with current program
+15:30:57.068 INFO  259/587 files analyzed, current file: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/src/app/Services/socket-io.service.ts
+15:30:59.664 INFO  Analyzed 155 file(s) with current program
+15:30:59.665 INFO  Creating TypeScript program
+15:30:59.665 INFO  TypeScript configuration file /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/src/tsconfig.spec.json
+15:31:00.203 INFO  Creating TypeScript program (done) | time=538ms
+15:31:00.204 INFO  Starting analysis with current program
+15:31:07.074 INFO  495/587 files analyzed, current file: /Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/frontend/src/app/token-sale/token-sale.component.spec.ts
+15:31:07.426 INFO  Analyzed 113 file(s) with current program
+15:31:07.428 INFO  Skipped 85 file(s) because they were not part of any tsconfig.json (enable debug logs to see the full list)
+15:31:07.428 INFO  587/587 source files have been analyzed
+15:31:07.429 INFO  Hit the cache for 0 out of 502
+15:31:07.429 INFO  Miss the cache for 502 out of 502: ANALYSIS_MODE_INELIGIBLE [502/502]
+15:31:07.429 INFO  Sensor TypeScript analysis [javascript] (done) | time=20411ms
+15:31:07.429 INFO  Sensor JavaScript inside YAML analysis [javascript]
+15:31:07.462 INFO  No input files found for analysis
+15:31:07.462 INFO  Hit the cache for 0 out of 0
+15:31:07.462 INFO  Miss the cache for 0 out of 0
+15:31:07.462 INFO  Sensor JavaScript inside YAML analysis [javascript] (done) | time=33ms
+15:31:07.462 INFO  Sensor CSS Rules [javascript]
+15:31:07.466 INFO  158 source files to be analyzed
+15:31:07.985 INFO  158/158 source files have been analyzed
+15:31:07.985 INFO  Hit the cache for 0 out of 0
+15:31:07.985 INFO  Miss the cache for 0 out of 0
+15:31:07.985 INFO  Sensor CSS Rules [javascript] (done) | time=523ms
+15:31:07.985 INFO  Sensor CSS Metrics [javascript]
+15:31:08.062 INFO  Sensor CSS Metrics [javascript] (done) | time=77ms
+15:31:08.062 INFO  Sensor C# Project Type Information [csharp]
+15:31:08.063 INFO  Sensor C# Project Type Information [csharp] (done) | time=1ms
+15:31:08.063 INFO  Sensor C# Analysis Log [csharp]
+15:31:08.077 INFO  Sensor C# Analysis Log [csharp] (done) | time=14ms
+15:31:08.077 INFO  Sensor C# Properties [csharp]
+15:31:08.077 INFO  Sensor C# Properties [csharp] (done) | time=0ms
+15:31:08.077 INFO  Sensor HTML [web]
+15:31:08.233 INFO  Sensor HTML [web] (done) | time=156ms
+15:31:08.233 INFO  Sensor XML Sensor [xml]
+15:31:08.235 INFO  7 source files to be analyzed
+15:31:09.048 WARN  Unable to analyse file file:///Users/yograj/.jenkins/workspace/DevSecOps-Pipeline/test/files/xxeBillionLaughs.xml;
+15:31:09.051 INFO  7/7 source files have been analyzed
+15:31:09.051 INFO  Sensor XML Sensor [xml] (done) | time=818ms
+15:31:09.051 INFO  Sensor TextAndSecretsSensor [text]
+15:31:09.056 INFO  932 source files to be analyzed
+15:31:10.867 INFO  932/932 source files have been analyzed
+15:31:10.867 INFO  Sensor TextAndSecretsSensor [text] (done) | time=1816ms
+15:31:10.867 INFO  Sensor VB.NET Project Type Information [vbnet]
+15:31:10.871 INFO  Sensor VB.NET Project Type Information [vbnet] (done) | time=4ms
+15:31:10.871 INFO  Sensor VB.NET Analysis Log [vbnet]
+15:31:10.879 INFO  Sensor VB.NET Analysis Log [vbnet] (done) | time=8ms
+15:31:10.879 INFO  Sensor VB.NET Properties [vbnet]
+15:31:10.879 INFO  Sensor VB.NET Properties [vbnet] (done) | time=0ms
+15:31:10.880 INFO  Sensor IaC Docker Sensor [iac]
+15:31:10.884 INFO  2 source files to be analyzed
+15:31:10.929 INFO  2/2 source files have been analyzed
+15:31:10.929 INFO  Sensor IaC Docker Sensor [iac] (done) | time=49ms
+15:31:10.931 INFO  ------------- Run sensors on project
+15:31:10.968 INFO  Sensor Analysis Warnings import [csharp]
+15:31:10.968 INFO  Sensor Analysis Warnings import [csharp] (done) | time=0ms
+15:31:10.968 INFO  Sensor Zero Coverage Sensor
+15:31:11.031 INFO  Sensor Zero Coverage Sensor (done) | time=63ms
+15:31:11.088 INFO  SCM Publisher SCM provider for this project is: git
+15:31:11.089 INFO  SCM Publisher 1 source file to be analyzed
+15:31:11.213 INFO  SCM Publisher 0/1 source files have been analyzed (done) | time=124ms
+15:31:11.213 WARN  Missing blame information for the following files:
+15:31:11.214 WARN    * frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.ts
+15:31:11.214 WARN  This may lead to missing/broken features in SonarQube
+15:31:11.244 INFO  CPD Executor 50 files had no CPD blocks
+15:31:11.245 INFO  CPD Executor Calculating CPD for 536 files
+15:31:11.337 INFO  CPD Executor CPD calculation finished (done) | time=92ms
+15:31:11.582 INFO  Analysis report generated in 205ms, dir size=6.1 MB
+15:31:12.843 INFO  Analysis report compressed in 1261ms, zip size=3.6 MB
+15:31:13.003 INFO  Analysis report uploaded in 159ms
+15:31:13.004 INFO  ANALYSIS SUCCESSFUL, you can find the results at: http://localhost:9000/dashboard?id=juice-shop
+15:31:13.004 INFO  Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+15:31:13.004 INFO  More about the report processing at http://localhost:9000/api/ce/task?id=AZ2GSb3nrlAQ9HRo77IC
+15:31:14.712 INFO  Analysis total time: 5:04.562 s
+15:31:14.714 INFO  EXECUTION SUCCESS
+15:31:14.714 INFO  Total time: 5:06.738s
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+Pipeline finished successfully
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
